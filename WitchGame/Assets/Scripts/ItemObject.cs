@@ -31,13 +31,15 @@ public class ItemObject : MonoBehaviour
 
     private void Awake()
     {
+        meshFilter = GetComponent<MeshFilter>();
+
         UpdatedItemState.AddListener(SetItemState);
         UpdatedItemState.AddListener(UpdateVisuals);
     }
 
     private void Start()
     {
-        meshFilter = GetComponent<MeshFilter>();
+        UpdatedItemState.Invoke(ItemState.RAW);
     }
 
     public void UpdateVisuals(ItemState newState = ItemState.RAW)
