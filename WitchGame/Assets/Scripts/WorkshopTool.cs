@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,58 +9,27 @@ public class WorkshopTool : MonoBehaviour
     
     public ItemState NewItemState;
 
-    ItemObject currentItemObjectInUse;
-
-    public bool requiresPlayerInput = false;
-    float playerCurrentDuration = 0f;
-
-    public float ToolUseDurationInSeconds = 5f;
-
-    bool isDone = false;
+    public static ItemObject currentItemObjectInUse;
 
     public UnityEvent<ItemObject> PlacedNewItem;
+    public event Action UseItem;
+    public UnityEvent TookItem;
 
-    private void Start()
+    private void Awake()
     {
-        NewItemToUse(new ItemObject());
+        PlacedNewItem.AddListener(NewItemToUse);
+        TookItem.AddListener(RemoveItem);
     }
 
     void NewItemToUse(ItemObject itemObject)
     {
         currentItemObjectInUse = itemObject;
-
-        isDone = false;
-
-        if (requiresPlayerInput)
-        {
-            StartCoroutine(SetAutoTimer());
-        } else
-        {
-            playerCurrentDuration = 0;
-        }
+        UseItem.Invoke();
     }
-
     
 
-    IEnumerator SetAutoTimer()
+    public void ConvertItem()
     {
-        yield return new WaitForSeconds(ToolUseDurationInSeconds);
-
-        ConvertItem();
-    }
-
-    public void OnPlayerInteractTool()
-    {
-        playerCurrentDuration += 0.1f;
-
-        if (playerCurrentDuration >= ToolUseDurationInSeconds) {
-            ConvertItem();
-        }
-    }
-
-    void ConvertItem()
-    {
-        isDone = true;
 
         if (currentItemObjectInUse.GetItemState() != ItemState.RAW)
         {
@@ -72,27 +42,9 @@ public class WorkshopTool : MonoBehaviour
         
     }
 
-    void PlaceNewItem(ItemObject newItem)
+    void RemoveItem()
     {
-        if (!currentItemObjectInUse)
-        {
-            PlacedNewItem.Invoke(newItem);
-        }
-    }
-
-    public void GetItemFromWorkshop()
-    {
-        if (!isDone)
-        {
-            if (requiresPlayerInput)
-            {
-                isDone = true;
-                // Give Item GameObject
-            }
-        } else
-        {
-            // Give Item GameObject
-        }
+        currentItemObjectInUse = null;
     }
 
 
