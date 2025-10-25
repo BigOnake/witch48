@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _gameplayTimerDuration = 120f;
     private float _gameplayTimer;
 
-    //public static event Action OnGameStarted;
-    //public static event Action OnGameOver;
+    public static event Action OnGameStarted;
+    public static event Action OnGameOver;
 
     private void Awake()
     {
@@ -39,11 +39,11 @@ public class GameManager : MonoBehaviour
                 _countdownToStartTimer -= Time.deltaTime;
                 if (_countdownToStartTimer < 0f)
                 {
-                    //OnGameStarted?.Invoke();
+                    OnGameStarted?.Invoke();
                     _gameplayTimer = _gameplayTimerDuration;
                     _state = GameState.GameInProgress;
                 }
-
+                
                 break;
             case GameState.GameInProgress:
                 _gameplayTimer -= Time.deltaTime;
@@ -51,10 +51,10 @@ public class GameManager : MonoBehaviour
                 {
                     _state = GameState.GameOver;
                 }
-
+                
                 break;
             case GameState.GameOver:
-                //OnGameOver?.Invoke();
+                OnGameOver?.Invoke();
                 break;
         }
     }
