@@ -1,6 +1,7 @@
 // Attach this script to the game object that needs to recieve inputs
 
 using System;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,7 @@ public class InputController : MonoBehaviour
     private InputAction moveAction;
     private InputAction lookAction;
     private InputAction interactAction;
+    private InputAction getItemAction;
     #endregion
 
     #region Events
@@ -20,6 +22,7 @@ public class InputController : MonoBehaviour
     public static event Action<Vector2> onPlayerMove;
     public static event Action<Vector2> onPlayerLook;
     public static event Action onPlayerInteract;
+    public static event Action onPlayerGetItem;
     #endregion
 
     private Vector2 movementInputs;
@@ -44,6 +47,7 @@ public class InputController : MonoBehaviour
         moveAction = inputSysActions.Player.Move;
         lookAction = inputSysActions.Player.Look;
         interactAction = inputSysActions.Player.Interact;
+        getItemAction = inputSysActions.Player.GetItem;
     }
 
     private void Update()
@@ -55,6 +59,7 @@ public class InputController : MonoBehaviour
     private void i_EnableInputs()
     {
         interactAction.performed += Interact;
+        getItemAction.performed += GetItem;
 
         moveAction.Enable();
         lookAction.Enable();
@@ -64,6 +69,7 @@ public class InputController : MonoBehaviour
     private void i_DisableInputs()
     {
         interactAction.performed -= Interact;
+        getItemAction.performed -= GetItem;
 
         moveAction.Disable();
         lookAction.Disable();
@@ -71,6 +77,11 @@ public class InputController : MonoBehaviour
     }
 
     #region Invokes
+    private void GetItem(InputAction.CallbackContext context)
+    {
+        onPlayerGetItem?.Invoke();
+    }
+
     private void Interact(InputAction.CallbackContext context)
     {
         onPlayerInteract?.Invoke();
