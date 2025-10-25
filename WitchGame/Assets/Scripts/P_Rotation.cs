@@ -40,7 +40,7 @@ public class P_Rotation : MonoBehaviour
     {
         if (lookingInputs != Vector3.zero)
         {
-            transform.rotation = Quaternion.LookRotation(-lookingInputs); //works great w/ gamepad
+            transform.root.rotation = Quaternion.LookRotation(-lookingInputs); //works great w/ gamepad
         }
     }
     #endregion
