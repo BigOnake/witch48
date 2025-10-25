@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class T_Movement : MonoBehaviour
 {
@@ -19,13 +20,13 @@ public class T_Movement : MonoBehaviour
     private void OnEnable()
     {
         //Debug.Log("<color=green> Movement script is enabled. </color>");
-        InputController.onPlayerMove += ReadInputs;
+        //InputController.onPlayerMove += ReadInputs;
     }
 
     private void OnDisable()
     {
         //Debug.Log("<color=red> Movement script is disabled. </color>");
-        InputController.onPlayerMove -= ReadInputs;
+        //InputController.onPlayerMove -= ReadInputs;
     }
 
     private void Awake()
@@ -40,9 +41,9 @@ public class T_Movement : MonoBehaviour
     #endregion
 
     #region Inputs
-    private void ReadInputs(Vector2 moveInputs)
+    public void ReadInputs(InputAction.CallbackContext context)
     {
-        iMovementVector = moveInputs;
+        iMovementVector = context.action.IsPressed()? context.ReadValue<Vector2>() : Vector2.zero;
     }
 
     private Vector3? UpdateInput()
