@@ -1,16 +1,21 @@
+using NUnit.Framework;
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class WorkshopTool : MonoBehaviour
 {
     public string ToolName = "Workbench";
-    
-    public ItemState NewItemState;
+
+    [Header("Item Results - Should be same length")]
+    public Item[] UsableItemsOnMachine;
+    public Item[] ResultedItems;
 
     public static ItemObject currentItemObjectInUse;
 
+    [Header("Events")]
     public UnityEvent<ItemObject> PlacedNewItem;
     public event Action UseItem;
     public UnityEvent TookItem;
@@ -31,14 +36,28 @@ public class WorkshopTool : MonoBehaviour
     public void ConvertItem()
     {
 
-        if (currentItemObjectInUse.GetItemState() != ItemState.RAW)
+        if (!UsableItemsOnMachine.Contains(currentItemObjectInUse.Item))
         {
             Destroy(currentItemObjectInUse.gameObject);
             currentItemObjectInUse = null;
             return;
         }
 
-        currentItemObjectInUse.UpdatedItemState.Invoke(NewItemState);
+        int itemIndex = Array.IndexOf(UsableItemsOnMachine, currentItemObjectInUse.Item);
+
+        Item newItem;
+
+        if (itemIndex >= ResultedItems.Length)
+        {
+            newItem = ResultedItems.Last();
+        } else
+        {
+            newItem = ResultedItems[itemIndex];
+        }
+
+            
+
+        currentItemObjectInUse.UpdatedItemState.Invoke(newItem);
         
     }
 

@@ -7,12 +7,8 @@ public class Item : ScriptableObject
     public string Name;
 
     [Header("3D Item Meshes")]
-    public Mesh RAWItemMesh;
-    public Mesh CHOPPEDItemMesh;
-    public Mesh GRINDEDItemMesh;
+    public Mesh ItemMesh;
 
     [Header("UI Item Icons")]
-    public Image RAWItemIcon;
-    public Image CHOPPEDItemIcon;
-    public Image GRINDEDItemIcon;
+    public Image ItemIcon;
 }
