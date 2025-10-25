@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class P_Rotation : MonoBehaviour
 {
@@ -11,13 +12,13 @@ public class P_Rotation : MonoBehaviour
     private void OnEnable()
     {
         //Debug.Log("<color=green> Camera script is enabled. </color>");
-        InputController.onPlayerLook += ReadInputs;
+        //InputController.onPlayerLook += ReadInputs;
     }
 
     private void OnDisable()
     {
         //Debug.Log("<color=red> Camera script is disabled. </color>");
-        InputController.onPlayerLook -= ReadInputs;
+        //InputController.onPlayerLook -= ReadInputs;
     }
 
     void Update()
@@ -27,8 +28,9 @@ public class P_Rotation : MonoBehaviour
     #endregion
 
     #region Inputs
-    public void ReadInputs(Vector2 input)
+    public void ReadInputs(InputAction.CallbackContext context)
     {
+        var input = context.ReadValue<Vector2>();
         lookingInputs = new Vector3(input.x, 0, input.y);
     }
     #endregion
