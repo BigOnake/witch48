@@ -20,15 +20,25 @@ public class WorkshopTool : MonoBehaviour
     public event Action UseItem;
     public UnityEvent TookItem;
 
+    ItemHolder itemHolder;
+
     private void Awake()
     {
         PlacedNewItem.AddListener(NewItemToUse);
         TookItem.AddListener(RemoveItem);
     }
 
+    private void Start()
+    {
+        itemHolder = GetComponent<ItemHolder>();
+        itemHolder?.TakeItem.AddListener(RemoveItem);
+        itemHolder?.PlaceItem.AddListener(NewItemToUse);
+    }
+
     void NewItemToUse(ItemObject itemObject)
     {
         currentItemObjectInUse = itemObject;
+        
         UseItem.Invoke();
     }
     

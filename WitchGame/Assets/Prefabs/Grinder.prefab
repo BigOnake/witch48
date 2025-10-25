@@ -428,10 +428,11 @@ GameObject:
   - component: {fileID: 8711123352802041099}
   - component: {fileID: 2135189003814114360}
   - component: {fileID: 5589141190633474736}
-  - component: {fileID: -8740663198854731238}
+  - component: {fileID: 8143174960765937829}
+  - component: {fileID: 6763964022440749276}
   m_Layer: 0
   m_Name: Grinder
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -540,7 +541,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ToolName: Workbench
-  NewItemState: 2
+  UsableItemsOnMachine: []
+  ResultedItems: []
   PlacedNewItem:
     m_PersistentCalls:
       m_Calls: []
@@ -562,7 +564,28 @@ MonoBehaviour:
   requiresPlayerInput: 0
   ToolUseDurationInSeconds: 5
   isDone: 1
---- !u!114 &-8740663198854731238
+--- !u!135 &8143174960765937829
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7745173521839421128}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.35
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6763964022440749276
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -571,9 +594,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7745173521839421128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0786b0e33467ce74bbdcf9c1b7e69776, type: 3}
+  m_Script: {fileID: 11500000, guid: dafb0616719a19d439d8c0c141d554b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlaceItem:
+    m_PersistentCalls:
+      m_Calls: []
+  TakeItem:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8304436260373236300
 GameObject:
   m_ObjectHideFlags: 0

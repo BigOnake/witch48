@@ -1,19 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 
-public class WorkshopItemHolder : MonoBehaviour
+public class ItemHolder : MonoBehaviour
 {
-    WorkshopTool workshopTool;
     GameObject itemHolder;
     GameObject HeldItem;
 
+    public UnityEvent<ItemObject> PlaceItem;
+    public UnityEvent TakeItem;
+
     private void Start()
     {
-        workshopTool = GetComponent<WorkshopTool>();
-
-        if (workshopTool == null)
-        {
-            Debug.LogWarning("WorkshopItemHolder cannot find WorkshopTool. Are they inside the same gameObject?");
-        }
 
         itemHolder = gameObject.transform.Find("Item Holder").gameObject;
 
@@ -26,7 +23,7 @@ public class WorkshopItemHolder : MonoBehaviour
         }
     }
 
-    public void SetNewItemOnWorkshop(GameObject gameobject)
+    private void SetNewItemOnHolder(GameObject gameobject)
     {
         ItemObject itemObj = gameobject.GetComponent<ItemObject>();
 
@@ -40,10 +37,10 @@ public class WorkshopItemHolder : MonoBehaviour
 
         HeldItem = gameobject;
 
-        workshopTool.PlacedNewItem.Invoke(itemObj);
+        PlaceItem.Invoke(itemObj);
     }
 
-    public GameObject TakeItemFromWorkshop()
+    private GameObject TakeItemFromHolder()
     {
         if (HeldItem == null)
         {
@@ -53,8 +50,22 @@ public class WorkshopItemHolder : MonoBehaviour
         GameObject givingObject = HeldItem;
         HeldItem = null;
 
-        workshopTool.TookItem.Invoke();
-        
+        TakeItem.Invoke();
+
         return givingObject;
+    }
+
+    // Allows player to swap out items if needed.
+    public void TakeOrPlaceItemCheck(GameObject playerHeldItem)
+    {
+        if (HeldItem == null)
+        {
+            SetNewItemOnHolder(playerHeldItem);
+        } else
+        {
+            var temp = playerHeldItem;
+            playerHeldItem = TakeItemFromHolder();
+            SetNewItemOnHolder(temp);
+        }
     }
 }
