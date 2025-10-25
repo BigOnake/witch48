@@ -21,6 +21,8 @@ public class ItemHolder : MonoBehaviour
             itemHolder.transform.parent = trans;
             Debug.LogWarning("WorkshopItemHolder cannot find a child object named 'Item Holder'. Temporary one has been made, but be sure to add one after debugging.");
         }
+
+        P_Interact.OnItemPlaceOrTake += TakeOrPlaceItemCheck;
     }
 
     private void SetNewItemOnHolder(GameObject gameobject)
@@ -56,8 +58,13 @@ public class ItemHolder : MonoBehaviour
     }
 
     // Allows player to swap out items if needed.
-    public void TakeOrPlaceItemCheck(GameObject playerHeldItem)
+    public void TakeOrPlaceItemCheck(GameObject playerHeldItem, GameObject playerItemHolder, GameObject CorrectInteractable)
     {
+        if (CorrectInteractable != gameObject)
+        {
+            return;
+        }
+
         if (HeldItem == null)
         {
             SetNewItemOnHolder(playerHeldItem);
@@ -65,6 +72,7 @@ public class ItemHolder : MonoBehaviour
         {
             var temp = playerHeldItem;
             playerHeldItem = TakeItemFromHolder();
+            playerHeldItem.transform.parent = playerItemHolder.transform;
             SetNewItemOnHolder(temp);
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class P_Interact : MonoBehaviour
@@ -7,11 +8,15 @@ public class P_Interact : MonoBehaviour
 
     public GameObject P_ItemHolder;
     GameObject HeldItem;
-    GameObject Currentinteractable;
+    public static GameObject Currentinteractable;
+
+    public static event Action<GameObject, GameObject, GameObject> OnItemPlaceOrTake;
+    public static event Action<GameObject> OnInteract;
 
     private void Start()
     {
         InputController.onPlayerInteract += Interact;
+        InputController.onPlayerGetItem += PlaceOrTake;
     }
 
     private void OnTriggerStay(Collider other)
@@ -31,21 +36,21 @@ public class P_Interact : MonoBehaviour
     {
         if (!active) { return; }
 
-        ItemHolder holder = Currentinteractable.GetComponent<ItemHolder>();
-        ItemCrate crate = Currentinteractable.GetComponent<ItemCrate>();
+        OnInteract.Invoke(Currentinteractable);
+    }
 
-        if (holder)
+    void PlaceOrTake()
+    {
+        if (!active) { return; }
+
+        OnItemPlaceOrTake.Invoke(HeldItem, P_ItemHolder, Currentinteractable);
+
+        if (P_ItemHolder.transform.childCount < 1)
         {
-            holder.TakeOrPlaceItemCheck(HeldItem);
+            HeldItem = null;
+            return;
         }
 
-        if (crate)
-        {
-            crate.TakeItemCheck(HeldItem);
-        }
-
-        HeldItem.transform.parent = P_ItemHolder.transform;
         HeldItem.transform.position = P_ItemHolder.transform.position;
-        
     }
 }

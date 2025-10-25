@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class WorkshopTimer : MonoBehaviour
@@ -43,6 +44,8 @@ public class WorkshopTimer : MonoBehaviour
 
         OnStart += SetNewTimer;
         OnComplete += workshopTool.ConvertItem;
+
+        P_Interact.OnInteract += OnPlayerInteractTool;
     }
 
     private void Update()
@@ -70,8 +73,12 @@ public class WorkshopTimer : MonoBehaviour
         IncremenentTime();
     }
 
-    public void OnPlayerInteractTool()
+    public void OnPlayerInteractTool(GameObject CorrectInteractable)
     {
+        if (CorrectInteractable != gameObject)
+        {
+            return;
+        }
         IncremenentTime();
     }
 

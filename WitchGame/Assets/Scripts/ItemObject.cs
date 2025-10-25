@@ -27,7 +27,7 @@ public class ItemObject : MonoBehaviour
         UpdatedItemState.Invoke(Item);
     }
 
-    public void UpdateVisuals(Item newItem)
+    private void UpdateVisuals(Item newItem)
     {
         if (Item == null) { return; }
 
