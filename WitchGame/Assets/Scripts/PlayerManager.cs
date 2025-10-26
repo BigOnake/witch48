@@ -29,8 +29,13 @@ public class PlayerManager : MonoBehaviour
     {
         GameObject go;
         Transform model;
-        go = playerInputManager.playerPrefab;
-        go.transform.root.position = spawnPositions[_playerCount] ? spawnPositions[_playerCount].position : Vector3.zero;
+        go = input.transform.gameObject;
+        go.transform.root.position = Vector3.zero;
+
+        if (input.playerIndex == 0)
+        {
+            playerInputManager.playerPrefab = playerPrefab;
+        }
 
         switch (_playerCount)
         {

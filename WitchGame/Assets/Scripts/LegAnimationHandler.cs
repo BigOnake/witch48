@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class LegAnimationHandler : MonoBehaviour
 {
-    public Rigidbody playerRB;
+    private Rigidbody playerRB;
     public Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        
+        animator = GetComponent<Animator>();
+        playerRB = GetComponentInParent<Rigidbody>();
     }
 
     // Update is called once per frame
