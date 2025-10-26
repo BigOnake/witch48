@@ -16,7 +16,7 @@ public class ArmAnimationHandler : MonoBehaviour
     void Update()
     {
         isInteracting=Input.GetKey(KeyCode.E);
-        Debug.Log("Change Input Here");
+        //Debug.Log("Change Input Here");
 
         if (isInteracting)
         {

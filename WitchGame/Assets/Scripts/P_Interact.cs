@@ -39,6 +39,7 @@ public class P_Interact : MonoBehaviour
 
     public void Interact(InputAction.CallbackContext context)
     {
+        Debug.Log("owner:" + context.action.name);
         if (currentInteractable == null) { return; }
         if (context.action.inProgress) { return; }
 

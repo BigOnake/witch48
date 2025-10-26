@@ -1,6 +1,4 @@
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class ItemCrate : MonoBehaviour, IInteractable
 { 

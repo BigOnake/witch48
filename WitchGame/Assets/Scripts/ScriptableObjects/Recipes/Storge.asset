@@ -15,6 +15,6 @@ MonoBehaviour:
   recipeName: Storge
   recipeIcon: {fileID: 21300000, guid: b5eb23ed4f4ac7e4eb37b4d39cd9e905, type: 3}
   ingredientSOList:
-  - {fileID: 11400000, guid: 0685fbaefab65034eb3c305df3e19f64, type: 2}
-  - {fileID: 11400000, guid: 0685fbaefab65034eb3c305df3e19f64, type: 2}
+  - {fileID: 11400000, guid: 454d8ba6481608e4ca4b777bd5e92874, type: 2}
+  - {fileID: 11400000, guid: f10ee2d8980ff974cbd53eacab22bad6, type: 2}
   result: {fileID: 0}
