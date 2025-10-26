@@ -12,11 +12,11 @@ public class ItemObject : MonoBehaviour
         Item = newItem;
     }
 
-    MeshFilter meshFilter;
+    SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
-        meshFilter = GetComponent<MeshFilter>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         UpdatedItemState.AddListener(SetNewItem);
         UpdatedItemState.AddListener(UpdateVisuals);
@@ -31,13 +31,13 @@ public class ItemObject : MonoBehaviour
     {
         if (Item == null) { return; }
 
-        SetItemMesh(Item.ItemMesh);
+        SetItemSprite(Item.ItemIcon);
     }
 
-    void SetItemMesh(Mesh mesh)
+    void SetItemSprite(Sprite sprite)
     {
-        if (mesh == null) { Debug.LogWarning("A mesh for " + Item.name + " does not exist."); return; }
+        if (sprite == null) { Debug.LogWarning("A sprite for " + Item.name + " does not exist."); return; }
 
-        meshFilter.mesh = mesh;
+        spriteRenderer.sprite = sprite;
     }
 }

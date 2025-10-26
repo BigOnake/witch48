@@ -6,9 +6,6 @@ public class ItemSO : ScriptableObject
 {
     public string Name;
 
-    [Header("3D Item Meshes")]
-    public Mesh ItemMesh;
-
-    [Header("UI Item Icons")]
+    [Header("Item Icon")]
     public Sprite ItemIcon;
 }
