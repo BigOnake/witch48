@@ -22,10 +22,13 @@ public class GameManager : MonoBehaviour
     public static event Action OnGameStarted;
     public static event Action OnGameOver;
 
+    private bool startedGame = false;
+
     private void Awake()
     {
         instance = this;
         _state = GameState.WaitingToStart;
+        startedGame = false;
     }
 
     private void Update()
@@ -33,7 +36,10 @@ public class GameManager : MonoBehaviour
         switch (_state)
         {
             case GameState.WaitingToStart: //add conditions to start game if needed
-                _state = GameState.CountdownToStart;
+                if (startedGame)
+                {
+                    _state = GameState.CountdownToStart;
+                }
                 break;
             case GameState.CountdownToStart:
                 _countdownToStartTimer -= Time.deltaTime;
@@ -82,5 +88,10 @@ public class GameManager : MonoBehaviour
     public float GetGameplayTimer()
     {
         return _gameplayTimer;
+    }
+
+    public void StartGame()
+    {
+        startedGame = true;
     }
 }
