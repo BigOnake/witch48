@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Collections;
+using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.InputSystem;
 
 public class OrderManager : MonoBehaviour
 {
@@ -66,6 +68,10 @@ public class OrderManager : MonoBehaviour
         _nextOrderId++;
         _orderList.Add(newOrder);
         OnOrderSpawned?.Invoke(newOrder);
+        foreach (KeyValuePair<Item, int> pair in randomRecipe.IngredientCounts)
+        {
+            Debug.Log("Order Recipe Dictionary: Key = " + pair.Key + ", Value = " + pair.Value);
+        }
     }
 
     public bool deliverOrderRecipe(RecipeSO deliveredRecipe)
