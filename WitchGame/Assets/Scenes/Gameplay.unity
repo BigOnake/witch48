@@ -250,7 +250,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4892241217987950739, guid: 6c5f03a223793be41a51991cfa4210ff, type: 3}
       propertyPath: playerActivateDistance
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6716552206364090850, guid: 6c5f03a223793be41a51991cfa4210ff, type: 3}
       propertyPath: m_Enabled
@@ -690,6 +690,18 @@ PrefabInstance:
       propertyPath: ToolName
       value: Mortar and Pestle
       objectReference: {fileID: 0}
+    - target: {fileID: 1522563903610882573, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
+      propertyPath: ResultedItems.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1522563903610882573, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
+      propertyPath: UsableItemsOnMachine.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1522563903610882573, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
+      propertyPath: 'UsableItemsOnMachine.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 85a60efe29791e54e8c0999d4bda4c3a, type: 2}
     - target: {fileID: 4672056951449786366, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.951
@@ -729,6 +741,10 @@ PrefabInstance:
     - target: {fileID: 4672056951449786366, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733500416762048067, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
+      propertyPath: ToolUseDurationInSeconds
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8271913980180626920, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
       propertyPath: m_AnchorMax.y

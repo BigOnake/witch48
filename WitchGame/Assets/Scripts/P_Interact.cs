@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class P_Interact : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class P_Interact : MonoBehaviour
     public GameObject heldItem = null;
     public static IInteractable currentInteractable;
 
-    public static event Action OnInteract;
+    public static event Action<GameObject> OnInteract;
 
     private void Update()
     {
@@ -23,6 +24,7 @@ public class P_Interact : MonoBehaviour
 
         if (Physics.Raycast(transform.position, transform.forward, out hit, playerActivateDistance))
         {
+            Debug.DrawRay(transform.position, (hit.point - transform.position), Color.red); //remove
             IInteractable interactable = hit.collider.GetComponent<IInteractable>();
             if (interactable != null)
             {
@@ -31,6 +33,7 @@ public class P_Interact : MonoBehaviour
             }
         }
 
+        Debug.DrawRay(transform.position, transform.forward * playerActivateDistance, Color.green); //remove
         currentInteractable = null;
     }
 
@@ -39,7 +42,8 @@ public class P_Interact : MonoBehaviour
         if (currentInteractable == null) { return; }
 
         currentInteractable.Interact(this);
-        OnInteract?.Invoke(GameObject CorrectInteractable);
+        GameObject obj = (currentInteractable as MonoBehaviour).gameObject;
+        OnInteract?.Invoke(obj);
     }
 
     public void PlaceOrTake(InputAction.CallbackContext context)

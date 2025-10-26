@@ -39,7 +39,7 @@ public class WorkshopTool : MonoBehaviour
     {
         currentItemObjectInUse = itemObject;
         
-        UseItem.Invoke();
+        UseItem?.Invoke();
     }
     
 

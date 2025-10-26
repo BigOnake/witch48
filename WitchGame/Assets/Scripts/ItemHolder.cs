@@ -45,12 +45,11 @@ public class ItemHolder : MonoBehaviour, IInteractable
 
     private void SetNewItemOnHolder(GameObject item)
     {
+        if (item == null) { return; }
+
         ItemObject itemObj = item.GetComponent<ItemObject>();
 
-        if (itemObj == null)
-        {
-            return;
-        }
+        if (itemObj == null) { return; }
 
         item.transform.parent = itemHolder.transform;
         item.transform.localPosition = Vector3.zero;
