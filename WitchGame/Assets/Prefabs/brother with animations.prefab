@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7765351462463294004}
   - component: {fileID: 8104595118232333117}
   - component: {fileID: 2703612127862958217}
-  - component: {fileID: 5873952206037328614}
+  - component: {fileID: 5467461328656518651}
   m_Layer: 0
   m_Name: pCube15
   m_TagString: Untagged
@@ -111,7 +111,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5873952206037328614
+--- !u!114 &5467461328656518651
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
