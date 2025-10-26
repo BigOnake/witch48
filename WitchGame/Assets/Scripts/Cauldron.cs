@@ -4,12 +4,13 @@ using System.Collections.Generic;
 
 public class Cauldron : MonoBehaviour, IInteractable
 {
-    [SerializeField] private RecipeListSO _recipeListSO; //Change to have a global recipe list, or recieve level recipe list
+    [SerializeField] private RecipeListSO _recipeListSO;
+    [SerializeField] private List<GameObject> _potionList;
     private List<ItemSO> heldIngredients = new();
 
     public void Interact(P_Interact player)
     {
-        MixCauldron();
+        MixCauldron(player);
     }
 
     public void PlaceOrTake(P_Interact player)
@@ -29,14 +30,23 @@ public class Cauldron : MonoBehaviour, IInteractable
         }
     }
 
-    public void MixCauldron()
+    public void MixCauldron(P_Interact player)
     {
         if (heldIngredients.Count < 1) { return; }
 
         RecipeSO matchingRecipe = getMatchingRecipe();
         if (matchingRecipe != null)
         {
-            Debug.Log("Recipe Mixed: " + matchingRecipe.name);
+            foreach (GameObject potion in _potionList)
+            {
+                ItemObject potionItem = potion.GetComponent<ItemObject>();
+                ItemSO potionRecipe = potionItem.Item;
+                if (matchingRecipe.result = potionRecipe)
+                {
+                    GameObject newPotionGO = Instantiate(potion);
+                    player.SetHeldItem(newPotionGO);
+                }
+            }
         }
         else
         {
