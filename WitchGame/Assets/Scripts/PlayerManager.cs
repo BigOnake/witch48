@@ -50,9 +50,6 @@ public class PlayerManager : MonoBehaviour
                 return;
         }
 
-        if (model)
-            model.gameObject.SetActive(false);
-
         _playerCount++;
     }
 }

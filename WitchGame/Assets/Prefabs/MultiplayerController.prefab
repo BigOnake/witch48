@@ -90,4 +90,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPositions: []
-  playerPrefab: {fileID: 9061049719862914507, guid: 21c57fadfd1283f45880fefb562553ac, type: 3}
+  playerPrefab: {fileID: 8577343223141714609, guid: 754c4d28a4ed56f4b8b848ce72600948, type: 3}
