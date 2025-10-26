@@ -13,7 +13,7 @@ public class WorkshopTool : MonoBehaviour
     public ItemSO[] UsableItemsOnMachine;
     public ItemSO[] ResultedItems;
 
-    public static ItemObject currentItemObjectInUse;
+    [HideInInspector] public ItemObject currentItemObjectInUse;
 
     [Header("Events")]
     public UnityEvent<ItemObject> PlacedNewItem;
@@ -33,23 +33,41 @@ public class WorkshopTool : MonoBehaviour
         itemHolder = GetComponent<ItemHolder>();
         itemHolder?.TakeItem.AddListener(RemoveItem);
         itemHolder?.PlaceItem.AddListener(NewItemToUse);
+
+        if (UsableItemsOnMachine.Length < 1 || ResultedItems.Length < 1)
+        {
+            Debug.LogWarning(ToolName + " does NOT have a list for either usable items or resulting items. Please add some");
+        }
     }
 
     void NewItemToUse(ItemObject itemObject)
     {
+        Debug.Log("New item has been placed!");
         currentItemObjectInUse = itemObject;
+
+        if (currentItemObjectInUse != null)
+        {
+            UseItem?.Invoke();
+        }
         
-        UseItem?.Invoke();
     }
     
 
     public void ConvertItem()
     {
+        if (UsableItemsOnMachine.Length < 1 || ResultedItems.Length < 1)
+        {
+            Destroy(currentItemObjectInUse.gameObject);
+            currentItemObjectInUse = null;
+            Debug.Log("Item has been destroyed as the compatibility list hasn't been setup.");
+            return;
+        }
 
         if (!UsableItemsOnMachine.Contains(currentItemObjectInUse.Item))
         {
             Destroy(currentItemObjectInUse.gameObject);
             currentItemObjectInUse = null;
+            Debug.Log("Item has been destroyed as it wasn't usable on this machine.");
             return;
         }
 
@@ -65,7 +83,7 @@ public class WorkshopTool : MonoBehaviour
             newItem = ResultedItems[itemIndex];
         }
 
-            
+        Debug.Log("Item " + newItem.Name + " has been created.");    
 
         currentItemObjectInUse.UpdatedItemState.Invoke(newItem);
         

@@ -692,16 +692,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1522563903610882573, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
       propertyPath: ResultedItems.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1522563903610882573, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
+      propertyPath: 'ResultedItems.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1eeb9d555608c3b4cb3a3e0f05be1c26, type: 2}
+    - target: {fileID: 1522563903610882573, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
       propertyPath: UsableItemsOnMachine.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1522563903610882573, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
       propertyPath: 'UsableItemsOnMachine.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 85a60efe29791e54e8c0999d4bda4c3a, type: 2}
+      objectReference: {fileID: 11400000, guid: be33c7b3309c6f240a9e7accadb593f4, type: 2}
     - target: {fileID: 4672056951449786366, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.951
@@ -741,6 +745,10 @@ PrefabInstance:
     - target: {fileID: 4672056951449786366, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733500416762048067, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
+      propertyPath: requiresPlayerInput
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6733500416762048067, guid: e84c899bb74b4ce4c93d70fe3f0af5de, type: 3}
       propertyPath: ToolUseDurationInSeconds
