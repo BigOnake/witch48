@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
-using UnityEngine.Windows;
 
 public class P_Rotation : MonoBehaviour
 {
@@ -44,7 +42,6 @@ public class P_Rotation : MonoBehaviour
         iDevice = context.control.device;
         rawInputs = context.ReadValue<Vector2>();
         lookingInputs = new Vector3(rawInputs.x, 0, rawInputs.y);
-        //lookingInputs = new Vector3(input.x, 0, input.y);
     }
     #endregion
 
@@ -64,11 +61,9 @@ public class P_Rotation : MonoBehaviour
                     Quaternion lookRotation = Quaternion.LookRotation(targetDir);
                     transform.root.rotation = Quaternion.Euler(0f, lookRotation.eulerAngles.y - 90, 0f); // -90 to adjust for angle dif
                 }
-                
             }
-            if(iDevice is Gamepad)
+            else if (iDevice is Gamepad)
             {
-                //transform.root.rotation = Quaternion.LookRotation(-lookingInputs); //works great w/ gamepad
                 Quaternion lookRotation = Quaternion.LookRotation(adjustVec(lookingInputs), Vector3.up);
                 transform.root.rotation = Quaternion.Euler(0f, lookRotation.eulerAngles.y - 90, 0f);
             }
