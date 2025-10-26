@@ -1,7 +1,6 @@
 // Attach this script to the game object that needs to recieve inputs
 
 using System;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

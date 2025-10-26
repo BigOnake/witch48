@@ -386,6 +386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2498387412845085487}
   - component: {fileID: 7564703143867152519}
+  - component: {fileID: 1252666737321064013}
   m_Layer: 0
   m_Name: L Arm pivot
   m_TagString: Untagged
@@ -431,6 +432,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1252666737321064013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675982852187714907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52b60405349fe7f4ca527dd8051719c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7564703143867152519}
+  inputController: {fileID: 0}
 --- !u!1 &2027131977436283744
 GameObject:
   m_ObjectHideFlags: 0
