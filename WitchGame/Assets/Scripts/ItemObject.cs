@@ -3,11 +3,11 @@ using UnityEngine.Events;
 
 public class ItemObject : MonoBehaviour
 {
-    public Item Item;
+    public ItemSO Item;
 
-    public UnityEvent<Item> UpdatedItemState;
+    public UnityEvent<ItemSO> UpdatedItemState;
 
-    public void SetNewItem(Item newItem)
+    public void SetNewItem(ItemSO newItem)
     {
         Item = newItem;
     }
@@ -27,7 +27,7 @@ public class ItemObject : MonoBehaviour
         UpdatedItemState.Invoke(Item);
     }
 
-    private void UpdateVisuals(Item newItem)
+    private void UpdateVisuals(ItemSO newItem)
     {
         if (Item == null) { return; }
 

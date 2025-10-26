@@ -1,79 +1,76 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ItemHolder : MonoBehaviour
+public class ItemHolder : MonoBehaviour, IInteractable
 {
-    GameObject itemHolder;
-    GameObject HeldItem;
+    GameObject heldItem;
+    protected GameObject itemHolder;
 
     public UnityEvent<ItemObject> PlaceItem;
     public UnityEvent TakeItem;
 
     private void Start()
     {
-
-        itemHolder = gameObject.transform.Find("Item Holder").gameObject;
+        itemHolder = transform.Find("Item Holder").gameObject;
 
         if (itemHolder == null)
         {
-            Transform trans = gameObject.transform;
             itemHolder = new GameObject(name = "Item Holder");
-            itemHolder.transform.parent = trans;
+            itemHolder.transform.parent = transform;
             Debug.LogWarning("WorkshopItemHolder cannot find a child object named 'Item Holder'. Temporary one has been made, but be sure to add one after debugging.");
         }
-
-        P_Interact.OnItemPlaceOrTake += TakeOrPlaceItemCheck;
     }
 
-    private void SetNewItemOnHolder(GameObject gameobject)
+    public void Interact(P_Interact player)
     {
-        ItemObject itemObj = gameobject.GetComponent<ItemObject>();
+        return;
+    }
 
-        if (itemObj == null)
+    public void PlaceOrTake(P_Interact player)
+    {
+        if (heldItem == null)
         {
-            return;
+            if (player.IsHoldingItem())
+            {
+                SetNewItemOnHolder(player.RetrieveHeldItem());
+            }
         }
+        else
+        {
+            GameObject temp = player.RetrieveHeldItem();
+            SetNewItemOnHolder(temp);
+            player.SetHeldItem(TakeItemFromHolder());
+        }
+    }
 
-        gameobject.transform.position = itemHolder.transform.position;
-        gameobject.transform.parent = itemHolder.transform;
+    private void SetNewItemOnHolder(GameObject item)
+    {
+        if (item == null) { return; }
 
-        HeldItem = gameobject;
+        ItemObject itemObj = item.GetComponent<ItemObject>();
 
-        PlaceItem.Invoke(itemObj);
+        if (itemObj == null) { return; }
+
+        item.transform.parent = itemHolder.transform;
+        item.transform.localPosition = Vector3.zero;
+
+        heldItem = item;
+
+        PlaceItem?.Invoke(itemObj);
     }
 
     private GameObject TakeItemFromHolder()
     {
-        if (HeldItem == null)
+        if (heldItem == null)
         {
             return null;
         }
 
-        GameObject givingObject = HeldItem;
-        HeldItem = null;
+        GameObject givingObject = heldItem;
+        heldItem = null;
 
-        TakeItem.Invoke();
+        TakeItem?.Invoke();
 
         return givingObject;
-    }
-
-    // Allows player to swap out items if needed.
-    public void TakeOrPlaceItemCheck(GameObject playerHeldItem, GameObject playerItemHolder, GameObject CorrectInteractable)
-    {
-        if (CorrectInteractable != gameObject)
-        {
-            return;
-        }
-
-        if (HeldItem == null)
-        {
-            SetNewItemOnHolder(playerHeldItem);
-        } else
-        {
-            var temp = playerHeldItem;
-            playerHeldItem = TakeItemFromHolder();
-            playerHeldItem.transform.parent = playerItemHolder.transform;
-            SetNewItemOnHolder(temp);
-        }
     }
 }

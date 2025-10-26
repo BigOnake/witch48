@@ -16,8 +16,7 @@ public class WorkshopTimer : MonoBehaviour
 
     [HideInInspector] public bool isDone = true;
 
-    public static event Action OnStart;
-    public static event Action OnComplete;
+    public event Action OnComplete;
 
     WorkshopTool workshopTool;
     Canvas canvas;
@@ -39,10 +38,9 @@ public class WorkshopTimer : MonoBehaviour
             slider = canvas.gameObject.GetComponentInChildren<Slider>();
         }
 
-        workshopTool.UseItem += OnStart;
+        workshopTool.UseItem += SetNewTimer;
         workshopTool.TookItem.AddListener(ResetTimer);
 
-        OnStart += SetNewTimer;
         OnComplete += workshopTool.ConvertItem;
 
         P_Interact.OnInteract += OnPlayerInteractTool;
@@ -50,7 +48,7 @@ public class WorkshopTimer : MonoBehaviour
 
     private void Update()
     {
-        if (!requiresPlayerInput && !isDone)
+        if (!requiresPlayerInput && !isDone && workshopTool.currentItemObjectInUse != null)
         {
             AutoTime();
         }
@@ -58,14 +56,24 @@ public class WorkshopTimer : MonoBehaviour
         {
             slider.value = currentTime / ToolUseDurationInSeconds;
         }
+        if (workshopTool.currentItemObjectInUse == null)
+        {
+            ResetTimer();
+        }
     }
 
     public void SetNewTimer()
     {
+        Debug.Log("Setting new timer...");
         currentTime = 0f;
         isDone = false;
 
         canvas.enabled = true;
+
+        if (workshopTool.currentItemObjectInUse == null)
+        {
+            ResetTimer();
+        }
     }
 
     private void AutoTime()
@@ -75,16 +83,21 @@ public class WorkshopTimer : MonoBehaviour
 
     public void OnPlayerInteractTool(GameObject CorrectInteractable)
     {
+        if (!requiresPlayerInput) {  return; }
+        if (workshopTool.currentItemObjectInUse == null) { return; }
+        Debug.Log("Player interacting with object");
         if (CorrectInteractable != gameObject)
         {
+            Debug.Log("CorrectInteractable does not match gameObject");
             return;
         }
-        IncremenentTime();
+        IncremenentTime(0.5f, false);
     }
 
-    private void IncremenentTime()
+    private void IncremenentTime(float increment=1f, bool useTime=true)
     {
-        currentTime += 0.1f * Time.deltaTime;
+        currentTime += increment * (useTime?Time.deltaTime:1f);
+        Debug.Log("Current Time: " + currentTime);
 
         if (currentTime >= ToolUseDurationInSeconds)
         {
@@ -94,6 +107,7 @@ public class WorkshopTimer : MonoBehaviour
 
     private void TimerComplete()
     {
+        Debug.Log("Timer complete!");
         isDone = true;
         canvas.enabled = false;
         OnComplete.Invoke();

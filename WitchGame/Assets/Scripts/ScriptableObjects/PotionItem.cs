@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PotionItem : Item
+public class PotionItem : ItemSO
 {
     public RecipeSO potionRecipe;
 }

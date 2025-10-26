@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b06d9d82eef5cc2469fab09cb90bdc16, type: 3}
   m_Name: RoseQuartz
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Rose Quartz
   ItemMesh: {fileID: 0}
   ItemIcon: {fileID: 0}

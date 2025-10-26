@@ -1,57 +1,88 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class P_Interact : MonoBehaviour
 {
-    public float playerAcitvateDistance;
-    bool active = false;
+    public float playerActivateDistance = 5f;
 
     public GameObject P_ItemHolder;
-    GameObject HeldItem;
-    public static GameObject Currentinteractable;
+    public GameObject heldItem = null;
+    public static IInteractable currentInteractable;
 
-    public static event Action<GameObject, GameObject, GameObject> OnItemPlaceOrTake;
     public static event Action<GameObject> OnInteract;
 
-    private void Start()
+    private void Update()
     {
-        //InputController.onPlayerInteract += Interact;
-        //InputController.onPlayerGetItem += PlaceOrTake;
+        CheckForInteractables();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void CheckForInteractables()
     {
-        if (other.tag == "Interactable")
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, playerActivateDistance))
         {
-            RaycastHit hit;
-            active = Physics.Raycast(transform.position, transform.forward, out hit, playerAcitvateDistance);
-            if (active)
+            Debug.DrawRay(transform.position, (hit.point - transform.position), Color.red); //remove
+            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+            if (interactable != null)
             {
-                Currentinteractable = other.gameObject;
+                currentInteractable = interactable;
+                return;
             }
         }
+
+        Debug.DrawRay(transform.position, transform.forward * playerActivateDistance, Color.green); //remove
+        currentInteractable = null;
     }
 
     public void Interact(InputAction.CallbackContext context)
     {
-        if (!active) { return; }
+        if (currentInteractable == null) { return; }
 
-        OnInteract.Invoke(Currentinteractable);
+        currentInteractable.Interact(this);
+        GameObject obj = (currentInteractable as MonoBehaviour).gameObject;
+        OnInteract?.Invoke(obj);
     }
 
     public void PlaceOrTake(InputAction.CallbackContext context)
     {
-        if (!active) { return; }
+        if (currentInteractable == null) { return; }
 
-        OnItemPlaceOrTake.Invoke(HeldItem, P_ItemHolder, Currentinteractable);
+        currentInteractable.PlaceOrTake(this);
+    }
 
-        if (P_ItemHolder.transform.childCount < 1)
+    public void SetHeldItem(GameObject newItem)
+    {
+        if (heldItem != null) { return; }
+
+        heldItem = newItem;
+        heldItem.transform.parent = P_ItemHolder.transform;
+        heldItem.transform.localPosition = Vector3.zero;
+    }
+
+    public GameObject RetrieveHeldItem()
+    {
+        if (heldItem == null) { return null; }
+
+        GameObject temp = heldItem;
+        heldItem = null;
+        temp.transform.parent = null;
+        return temp;
+    }
+
+    public void DestroyHeldItem()
+    {
+       if (heldItem != null)
         {
-            HeldItem = null;
-            return;
+            Destroy(heldItem);
+            heldItem = null;
         }
+    }
 
-        HeldItem.transform.position = P_ItemHolder.transform.position;
+    public bool IsHoldingItem()
+    {
+        return heldItem != null;
     }
 }
