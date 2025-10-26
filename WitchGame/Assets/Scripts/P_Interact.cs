@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class P_Interact : MonoBehaviour
 {
@@ -15,8 +16,8 @@ public class P_Interact : MonoBehaviour
 
     private void Start()
     {
-        InputController.onPlayerInteract += Interact;
-        InputController.onPlayerGetItem += PlaceOrTake;
+        //InputController.onPlayerInteract += Interact;
+        //InputController.onPlayerGetItem += PlaceOrTake;
     }
 
     private void OnTriggerStay(Collider other)
@@ -32,14 +33,14 @@ public class P_Interact : MonoBehaviour
         }
     }
 
-    void Interact()
+    public void Interact(InputAction.CallbackContext context)
     {
         if (!active) { return; }
 
         OnInteract.Invoke(Currentinteractable);
     }
 
-    void PlaceOrTake()
+    public void PlaceOrTake(InputAction.CallbackContext context)
     {
         if (!active) { return; }
 
