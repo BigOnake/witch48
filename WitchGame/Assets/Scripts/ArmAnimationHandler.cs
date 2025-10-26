@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AnimationHandler : MonoBehaviour
+public class ArmAnimationHandler : MonoBehaviour
 {
     public Animator animator;
     public InputController inputController;
