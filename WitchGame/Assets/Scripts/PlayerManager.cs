@@ -30,7 +30,15 @@ public class PlayerManager : MonoBehaviour
         GameObject go;
         Transform model;
         go = input.transform.gameObject;
-        go.transform.root.position = Vector3.zero;
+
+        if (spawnPositions != null && spawnPositions.Length != 0)
+        {
+            go.transform.root.position = spawnPositions[input.playerIndex].position;
+        }
+        else
+        {
+            go.transform.root.position = Vector3.zero;
+        }
 
         if (input.playerIndex == 0)
         {
