@@ -43,9 +43,9 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 10
+  m_Color: {r: 1, g: 0.8243717, b: 0.6245283, a: 1}
+  m_Intensity: 10
+  m_Range: 150
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -299,7 +299,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.3
-  m_Height: 1.2
+  m_Height: 1.15
   m_Direction: 1
   m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!114 &6716552206364090850
@@ -517,7 +517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8081694658265299117, guid: 85107c35f888dbe459a87a662ccdfe1d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.15
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8081694658265299117, guid: 85107c35f888dbe459a87a662ccdfe1d, type: 3}
       propertyPath: m_LocalPosition.z
