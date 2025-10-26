@@ -6,6 +6,8 @@ using System.Collections;
 
 public class OrderManager : MonoBehaviour
 {
+    public static OrderManager instance;
+
     [SerializeField] private List<RecipeSO> _recipeSOList;
     private List<Order> _orderList;
     public IReadOnlyList<Order> OrderList => _orderList as IReadOnlyList<Order>;
@@ -23,6 +25,7 @@ public class OrderManager : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         _orderList = new List<Order>();
     }
 
@@ -82,5 +85,10 @@ public class OrderManager : MonoBehaviour
 
         OnInvalidOrderDelivery?.Invoke();
         return false;
+    }
+
+    public float GetTimeLimit()
+    {
+        return _orderTimeLimit;
     }
 }

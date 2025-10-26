@@ -10,5 +10,5 @@ public class Item : ScriptableObject
     public Mesh ItemMesh;
 
     [Header("UI Item Icons")]
-    public Image ItemIcon;
+    public Sprite ItemIcon;
 }
