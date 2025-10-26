@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Rose Petal
   ItemMesh: {fileID: 0}
-  ItemIcon: {fileID: 0}
+  ItemIcon: {fileID: 21300000, guid: 73e455791e2f53945b9c94f27f789627, type: 3}

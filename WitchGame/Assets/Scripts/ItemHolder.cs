@@ -38,8 +38,9 @@ public class ItemHolder : MonoBehaviour, IInteractable
         else
         {
             GameObject temp = player.RetrieveHeldItem();
-            SetNewItemOnHolder(temp);
             player.SetHeldItem(TakeItemFromHolder());
+            SetNewItemOnHolder(temp);
+            
         }
     }
 

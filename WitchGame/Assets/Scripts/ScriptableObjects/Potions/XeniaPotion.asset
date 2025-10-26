@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b06d9d82eef5cc2469fab09cb90bdc16, type: 3}
-  m_Name: GroundPetal
+  m_Name: XeniaPotion
   m_EditorClassIdentifier: 
-  Name: Ground Petal
-  ItemMesh: {fileID: 0}
-  ItemIcon: {fileID: 21300000, guid: 3befd2753b9c7fc4196e3ae446d26fd8, type: 3}
+  Name: Xenia
+  ItemMesh: {fileID: 5065503977446733706, guid: 5822949ba13c9574a9d8f69a54b5fcde, type: 3}
+  ItemIcon: {fileID: 21300000, guid: bcb0a6c30d9b9514a800a7207b4ed617, type: 3}

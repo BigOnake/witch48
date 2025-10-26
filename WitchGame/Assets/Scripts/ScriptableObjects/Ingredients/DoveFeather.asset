@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Dove Feather
   ItemMesh: {fileID: 0}
-  ItemIcon: {fileID: 0}
+  ItemIcon: {fileID: 21300000, guid: 101f2ea3a8593634f842a0fc34ee3fb8, type: 3}
