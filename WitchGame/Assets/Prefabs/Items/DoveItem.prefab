@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1790978230622414717}
   - component: {fileID: 5574021708561330033}
   m_Layer: 0
-  m_Name: Dove Object
+  m_Name: DoveItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

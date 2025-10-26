@@ -50,6 +50,8 @@ public class WorkshopTimer : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("Requiers Player Input: " + requiresPlayerInput);
+        Debug.Log("isDone: " + isDone);
         if (!requiresPlayerInput && !isDone)
         {
             AutoTime();
@@ -77,6 +79,7 @@ public class WorkshopTimer : MonoBehaviour
     {
         if (CorrectInteractable != gameObject)
         {
+            Debug.Log("CorrectInteractable does not match gameObject");
             return;
         }
         IncremenentTime();
@@ -85,6 +88,7 @@ public class WorkshopTimer : MonoBehaviour
     private void IncremenentTime()
     {
         currentTime += 0.1f * Time.deltaTime;
+        Debug.Log("Current Time: " + currentTime);
 
         if (currentTime >= ToolUseDurationInSeconds)
         {
