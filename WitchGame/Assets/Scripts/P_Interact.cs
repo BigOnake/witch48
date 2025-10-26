@@ -22,7 +22,7 @@ public class P_Interact : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, playerActivateDistance))
+        if (Physics.Raycast(transform.position, transform.root.right, out hit, playerActivateDistance))
         {
             Debug.DrawRay(transform.position, (hit.point - transform.position), Color.red); //remove
             IInteractable interactable = hit.collider.GetComponent<IInteractable>();
@@ -33,13 +33,14 @@ public class P_Interact : MonoBehaviour
             }
         }
 
-        Debug.DrawRay(transform.position, transform.forward * playerActivateDistance, Color.green); //remove
+        Debug.DrawRay(transform.position, transform.root.right * playerActivateDistance, Color.green); //remove
         currentInteractable = null;
     }
 
     public void Interact(InputAction.CallbackContext context)
     {
         if (currentInteractable == null) { return; }
+        if (context.action.inProgress) { return; }
 
         currentInteractable.Interact(this);
         GameObject obj = (currentInteractable as MonoBehaviour).gameObject;
@@ -49,6 +50,7 @@ public class P_Interact : MonoBehaviour
     public void PlaceOrTake(InputAction.CallbackContext context)
     {
         if (currentInteractable == null) { return; }
+        if (context.action.inProgress) { return; }
 
         currentInteractable.PlaceOrTake(this);
     }

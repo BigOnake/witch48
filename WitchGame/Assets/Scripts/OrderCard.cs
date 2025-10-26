@@ -16,7 +16,7 @@ public class OrderCard : MonoBehaviour
     {
         TimeLimit = OrderManager.instance.GetTimeLimit();
         orderTimer = GetComponentInChildren<Slider>();
-        orderIcon = GetComponentInChildren<Image>();
+        orderIcon = transform.Find("Potion Icon").GetComponent<Image>();
 
         id = order.id;
 

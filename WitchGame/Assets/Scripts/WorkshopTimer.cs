@@ -83,7 +83,7 @@ public class WorkshopTimer : MonoBehaviour
 
     public void OnPlayerInteractTool(GameObject CorrectInteractable)
     {
-        if (!requiresPlayerInput) {  return; }
+        if (!requiresPlayerInput || isDone) {  return; }
         if (workshopTool.currentItemObjectInUse == null) { return; }
         Debug.Log("Player interacting with object");
         if (CorrectInteractable != gameObject)

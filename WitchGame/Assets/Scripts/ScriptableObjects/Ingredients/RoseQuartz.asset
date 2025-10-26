@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Rose Quartz
   ItemMesh: {fileID: 0}
-  ItemIcon: {fileID: 0}
+  ItemIcon: {fileID: 21300000, guid: 1c183b99bcaa7674d90e4eea614852b5, type: 3}
