@@ -10,8 +10,8 @@ public class WorkshopTool : MonoBehaviour
     public string ToolName = "Workbench";
 
     [Header("Item Results - Should be same length")]
-    public Item[] UsableItemsOnMachine;
-    public Item[] ResultedItems;
+    public ItemSO[] UsableItemsOnMachine;
+    public ItemSO[] ResultedItems;
 
     public static ItemObject currentItemObjectInUse;
 
@@ -55,7 +55,7 @@ public class WorkshopTool : MonoBehaviour
 
         int itemIndex = Array.IndexOf(UsableItemsOnMachine, currentItemObjectInUse.Item);
 
-        Item newItem;
+        ItemSO newItem;
 
         if (itemIndex >= ResultedItems.Length)
         {

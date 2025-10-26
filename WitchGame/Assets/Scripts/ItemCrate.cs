@@ -1,32 +1,24 @@
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ItemCrate : MonoBehaviour
+public class ItemCrate : MonoBehaviour, IInteractable
 { 
     public GameObject ItemToSpawn;
 
-    private void Start()
+    public void Interact(P_Interact player)
     {
-        P_Interact.OnItemPlaceOrTake += TakeItemCheck;
-    }
-    GameObject TakeItemFromCrate()
-    {
-        GameObject givingObject = Instantiate(ItemToSpawn);
-
-
-        return givingObject;
+        return;
     }
 
-    public void TakeItemCheck(GameObject playerHeldItem, GameObject playerItemHolder, GameObject CorrectInteractable)
+    public void PlaceOrTake(P_Interact player)
     {
-        if (CorrectInteractable != gameObject)
+        if (player.IsHoldingItem())
         {
             return;
         }
 
-        if (playerHeldItem != null) { return; }
-
-        playerHeldItem = TakeItemFromCrate();
-        playerHeldItem.transform.parent = playerItemHolder.transform;
+        GameObject givingObject = Instantiate(ItemToSpawn);
+        player.SetHeldItem(givingObject);
     }
 }

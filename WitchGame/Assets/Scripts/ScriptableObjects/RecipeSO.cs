@@ -7,10 +7,10 @@ public class RecipeSO : ScriptableObject
 {
     public string recipeName;
     public Sprite recipeIcon;
-    public List<Item> ingredientSOList;
-    public Item result;
-    private Dictionary<Item, int> _ingredientCounts = new Dictionary<Item, int>();
-    public IReadOnlyDictionary<Item, int> IngredientCounts => _ingredientCounts as IReadOnlyDictionary<Item, int>;
+    public List<ItemSO> ingredientSOList;
+    public ItemSO result;
+    private Dictionary<ItemSO, int> _ingredientCounts = new Dictionary<ItemSO, int>();
+    public IReadOnlyDictionary<ItemSO, int> IngredientCounts => _ingredientCounts as IReadOnlyDictionary<ItemSO, int>;
 
     private void OnValidate()
     {
@@ -27,7 +27,7 @@ public class RecipeSO : ScriptableObject
 
     private void CountIngredients()
     {
-        foreach (Item ingredient in ingredientSOList)
+        foreach (ItemSO ingredient in ingredientSOList)
         {
             if (ingredient == null)
             {

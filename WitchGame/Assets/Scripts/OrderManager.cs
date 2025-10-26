@@ -10,7 +10,7 @@ public class OrderManager : MonoBehaviour
 {
     public static OrderManager instance;
 
-    [SerializeField] private List<RecipeSO> _recipeSOList;
+    [SerializeField] private RecipeListSO _recipeListSO;
     private List<Order> _orderList;
     public IReadOnlyList<Order> OrderList => _orderList as IReadOnlyList<Order>;
 
@@ -65,16 +65,16 @@ public class OrderManager : MonoBehaviour
 
     private void CreateRandomOrder()
     {
-        int index = UnityEngine.Random.Range(0, _recipeSOList.Count);
-        RecipeSO randomRecipe = _recipeSOList[index];
+        int index = UnityEngine.Random.Range(0, _recipeListSO.recipeList.Count);
+        RecipeSO randomRecipe = _recipeListSO.recipeList[index];
         Order newOrder = new Order(randomRecipe, _nextOrderId, _orderTimeLimit);
         _nextOrderId++;
         _orderList.Add(newOrder);
         OnOrderSpawned?.Invoke(newOrder);
-        foreach (KeyValuePair<Item, int> pair in randomRecipe.IngredientCounts)
-        {
-            Debug.Log("Order Recipe Dictionary: Key = " + pair.Key + ", Value = " + pair.Value);
-        }
+        //foreach (KeyValuePair<Item, int> pair in randomRecipe.IngredientCounts)
+        //{
+        //    Debug.Log("Order Recipe Dictionary: Key = " + pair.Key + ", Value = " + pair.Value);
+        //}
     }
 
     public bool deliverOrderRecipe(RecipeSO deliveredRecipe)

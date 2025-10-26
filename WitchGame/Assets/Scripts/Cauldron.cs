@@ -1,70 +1,100 @@
-using System.Linq;
+using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.Events;
+using System.Collections.Generic;
 
-public class Cauldron : MonoBehaviour
+public class Cauldron : MonoBehaviour, IInteractable
 {
-    GameObject itemHolder;
-    GameObject[] HeldItems;
+    [SerializeField] private RecipeListSO _recipeListSO; //Change to have a global recipe list, or recieve level recipe list
+    private List<ItemSO> heldIngredients = new();
 
-    private void Start()
+    public void Interact(P_Interact player)
     {
-
-        itemHolder = gameObject.transform.Find("Item Holder").gameObject;
-
-        if (itemHolder == null)
-        {
-            Transform trans = gameObject.transform;
-            itemHolder = new GameObject(name = "Item Holder");
-            itemHolder.transform.parent = trans;
-            Debug.LogWarning("WorkshopItemHolder cannot find a child object named 'Item Holder'. Temporary one has been made, but be sure to add one after debugging.");
-        }
-
-        P_Interact.OnItemPlaceOrTake += AddItemCheck;
+        MixCauldron();
     }
 
-    private void AddNewItemToCauldron(GameObject gameobject)
+    public void PlaceOrTake(P_Interact player)
     {
-        ItemObject itemObj = gameobject.GetComponent<ItemObject>();
-
-        if (itemObj == null)
+        if (!player.IsHoldingItem())
         {
             return;
         }
 
-        gameobject.transform.position = itemHolder.transform.position;
-        gameobject.transform.parent = itemHolder.transform;
-        gameobject.GetComponent<MeshRenderer>().enabled = false;
+        GameObject item = player.RetrieveHeldItem();
+        ItemObject itemObj = item.GetComponent<ItemObject>();
 
-        HeldItems.Append(gameobject);
-
-    }
-
-    public void AddItemCheck(GameObject playerHeldItem, GameObject playerItemHolder, GameObject CorrectInteractable)
-    {
-        if (CorrectInteractable != gameObject)
+        if (itemObj != null)
         {
-            return;
+            heldIngredients.Add(itemObj.Item);
+            Destroy(item);
         }
-        AddNewItemToCauldron(playerHeldItem);
     }
 
     public void MixCauldron()
     {
-        if (HeldItems.Length < 1) { return; }
+        if (heldIngredients.Count < 1) { return; }
 
-        // Add stuff here about recipes
+        RecipeSO matchingRecipe = getMatchingRecipe();
+        if (matchingRecipe != null)
+        {
+            Debug.Log("Recipe Mixed: " + matchingRecipe.name);
+        }
+        else
+        {
+            Debug.Log("Recipe Mixed: Invalid!!");
+        }
 
-        DeleteItems();
+        heldIngredients.Clear();
     }
 
-    private void DeleteItems()
+    private RecipeSO getMatchingRecipe()
     {
-        HeldItems = new GameObject[0];
+        Dictionary<ItemSO, int> cauldronCounts = new Dictionary<ItemSO, int>();
 
-        foreach (Transform child in itemHolder.transform)
+        foreach (ItemSO ingredient in heldIngredients)
         {
-            Destroy(child.gameObject);
+            if (ingredient == null)
+            {
+                continue;
+            }
+
+            if (cauldronCounts.ContainsKey(ingredient))
+            {
+                cauldronCounts[ingredient]++;
+            }
+            else
+            {
+                cauldronCounts.Add(ingredient, 1);
+            }
         }
+
+        foreach (RecipeSO recipe in _recipeListSO.recipeList)
+        {
+            if (IsMatchingRecipe(cauldronCounts, recipe))
+            {
+                return recipe;
+            }
+        }
+
+        return null;
+    }
+
+    private bool IsMatchingRecipe(Dictionary<ItemSO, int> cauldronCounts, RecipeSO recipe)
+    {
+        if (cauldronCounts.Count != recipe.IngredientCounts.Count)
+        {
+            return false;
+        }
+
+        foreach (KeyValuePair<ItemSO, int> recipePair in recipe.IngredientCounts)
+        {
+            ItemSO recipeIngredient = recipePair.Key;
+            int recipeCount = recipePair.Value;
+            if (!cauldronCounts.ContainsKey(recipeIngredient) || cauldronCounts[recipeIngredient] != recipeCount)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

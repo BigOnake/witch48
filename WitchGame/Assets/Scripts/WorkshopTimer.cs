@@ -16,8 +16,8 @@ public class WorkshopTimer : MonoBehaviour
 
     [HideInInspector] public bool isDone = true;
 
-    public static event Action OnStart;
-    public static event Action OnComplete;
+    public event Action OnStart;
+    public event Action OnComplete;
 
     WorkshopTool workshopTool;
     Canvas canvas;
