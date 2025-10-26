@@ -48,6 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _recipeListSO: {fileID: 11400000, guid: b40cc84747cfc744683f995e69e8a60c, type: 2}
+  _potionList:
+  - {fileID: 9105469956373343218, guid: d25becb5b179e5c42a0dd08b5eeb0a86, type: 3}
+  - {fileID: 9105469956373343218, guid: 40272b9452fffe044a3aa9ba21dd587d, type: 3}
+  - {fileID: 9105469956373343218, guid: edb07cbbb01a3374381ec7796a829fbe, type: 3}
 --- !u!135 &8234374330491105516
 SphereCollider:
   m_ObjectHideFlags: 0

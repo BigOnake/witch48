@@ -77,13 +77,16 @@ public class OrderManager : MonoBehaviour
         //}
     }
 
-    public bool deliverOrderRecipe(RecipeSO deliveredRecipe)
+    public bool deliverOrderRecipe(ItemObject deliveredItem)
     {
+        string recipeName = deliveredItem.name;
+
         for (int i = _orderList.Count - 1; i >= 0; i--)
         {
-            if (deliveredRecipe == _orderList[i].recipe)
+            if (recipeName == _orderList[i].recipe.name)
             {
                 OnOrderDelivered?.Invoke(_orderList[i]);
+                Debug.Log("Order sent: " + _orderList[i].recipe.name);
                 _orderList.RemoveAt(i);
                 return true;
             }
